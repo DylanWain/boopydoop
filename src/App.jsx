@@ -125,12 +125,25 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (email) {
+    try {
+      await fetch('https://jgeetfmnzuivlvknkfdc.supabase.co/rest/v1/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnZWV0Zm1uenVpdmx2a25rZmRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5MjQ0NTEsImV4cCI6MjA4MDUwMDQ1MX0.vcIffcyZm0OLZduIwEKFt3tjMZWBt-St155NXUl3dQ8',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnZWV0Zm1uenVpdmx2a25rZmRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5MjQ0NTEsImV4cCI6MjA4MDUwMDQ1MX0.vcIffcyZm0OLZduIwEKFt3tjMZWBt-St155NXUl3dQ8'
+        },
+        body: JSON.stringify({ email })
+      });
       setSubmitted(true);
+    } catch (err) {
+      console.error(err);
     }
-  };
+  }
+};
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white antialiased relative" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
